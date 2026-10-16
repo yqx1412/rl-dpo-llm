@@ -2,17 +2,19 @@
 #
 # These are minimum-version floors, not exact pins. The code uses TRL's
 # `processing_class=` DPOTrainer API and `max_length`/`max_prompt_length` on
-# DPOConfig, both of which are stable from the versions below onward (verified
-# against current TRL main). Lower bounds keep the project installable on
-# Colab, which ships a recent Python + torch that an exact `torch==` pin would
-# conflict with.
+# DPOConfig, both present and stable in the TRL floor below (verified against
+# current TRL). The transformers/trl floors are kept recent on purpose: older
+# versions pull huggingface-hub 0.x, which conflicts with the modern
+# diffusers Colab preinstalls (it needs hub >=1.23). Recent floors resolve to
+# hub >=1.x and keep the environment coherent.
 #
 # torch is intentionally NOT pinned: on Colab/most GPU boxes it is preinstalled
 # with the right CUDA build, and re-pinning it is the usual cause of
 # "no matching distribution" errors. Install torch via your platform if absent.
 torch>=2.4
-transformers>=4.46,<5
-trl>=0.12,<0.24
+transformers>=4.57,<5
+trl>=0.21,<0.24
+huggingface-hub>=1.23   # keep in step with Colab's preinstalled diffusers
 peft>=0.13
 datasets>=3.0
 accelerate>=1.0
