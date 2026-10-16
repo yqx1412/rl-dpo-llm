@@ -24,8 +24,8 @@ dpo:
                             # UltraFeedback. Try the 0.01-0.05 range first.
   learning_rate: 5.0e-6
   num_train_epochs: 1
-  per_device_train_batch_size: 2
-  gradient_accumulation_steps: 8   # effective batch = 16
+  per_device_train_batch_size: 1    # T4-safe default; raise to 2 on a bigger GPU
+  gradient_accumulation_steps: 16   # effective batch = 16
   warmup_ratio: 0.1
   logging_steps: 10
   save_steps: 200
