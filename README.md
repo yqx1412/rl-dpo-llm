@@ -100,6 +100,11 @@ the base model and tells you so.
 
 ## Resume bullets (fill in your real numbers after running)
 
+After evaluating, run `python src/print_bullets.py` — it reads
+`outputs/eval_results.json` and prints these bullets with your **real
+win-rate** already filled in (base model, LoRA rank, β, judge, and n pulled
+from your run), ready to paste here:
+
 - Fine-tuned Qwen2.5-0.5B with **Direct Preference Optimization (TRL + LoRA)** on
   4K preference pairs, raising held-out **win-rate from 50% → __%** vs. the base
   model.
