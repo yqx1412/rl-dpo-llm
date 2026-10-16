@@ -49,7 +49,7 @@ win-rate report vs. base model
 | Base model | `Qwen2.5-0.5B-Instruct` | Already chat-tuned, tiny, strong for size |
 | Method | DPO | Stable, reward-model-free, single-GPU |
 | Dataset | `trl-lib/ultrafeedback_binarized` | Standard, clean chosen/rejected pairs |
-| PEFT | LoRA (r=16) | Fits on ~8–12 GB VRAM / Colab T4 |
+| PEFT | LoRA (r=32) | Fits on ~8–12 GB VRAM / Colab T4 |
 | Eval | Win-rate (judge model) | The resume metric |
 
 ## Quick start
@@ -78,7 +78,7 @@ python src/train_dpo.py --config configs/dpo_config.yaml
 python src/evaluate.py --config configs/dpo_config.yaml --num-eval 100
 ```
 
-On a free Colab T4, `--num-samples 2000` and 1 epoch finishes in roughly an hour.
+On a free Colab T4, `--num-samples 4000` and 2 epochs finishes in roughly 45–90 min.
 Set `OPENAI_API_KEY` to use GPT as the eval judge, or pass `--judge local` to use a
 local model.
 
