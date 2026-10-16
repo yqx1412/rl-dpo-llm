@@ -3,10 +3,15 @@
 # These are minimum-version floors, not exact pins. The code uses TRL's
 # `processing_class=` DPOTrainer API and `max_length`/`max_prompt_length` on
 # DPOConfig, both present and stable in the TRL floor below (verified against
-# current TRL). The transformers/trl floors are kept recent on purpose: older
-# versions pull huggingface-hub 0.x, which conflicts with the modern
-# diffusers Colab preinstalls (it needs hub >=1.23). Recent floors resolve to
-# hub >=1.x and keep the environment coherent.
+# current TRL).
+#
+# NOTE on the "huggingface-hub ... diffusers ..." pip warning on Colab:
+# transformers requires huggingface-hub <1.0, while Colab's preinstalled
+# diffusers wants hub >=1.23 — the ranges do not overlap, so pip prints a
+# conflict warning and installs the hub <1.0 that transformers needs. This is
+# EXPECTED and HARMLESS here: this project never imports diffusers. Do NOT pin
+# hub >=1.23 to silence it — that makes the install genuinely impossible
+# against transformers.
 #
 # torch is intentionally NOT pinned: on Colab/most GPU boxes it is preinstalled
 # with the right CUDA build, and re-pinning it is the usual cause of
@@ -14,7 +19,6 @@
 torch>=2.4
 transformers>=4.57,<5
 trl>=0.21,<0.24
-huggingface-hub>=1.23   # keep in step with Colab's preinstalled diffusers
 peft>=0.13
 datasets>=3.0
 accelerate>=1.0
