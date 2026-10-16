@@ -54,6 +54,12 @@ win-rate report vs. base model
 
 ## Quick start
 
+**Train in your browser (no local GPU):** open the Colab notebook —
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yqx1412/rl-dpo-llm/blob/main/notebooks/dpo_colab.ipynb)
+— set the runtime to a T4 GPU and run the cells top to bottom.
+
+**Or run locally:**
+
 ```bash
 # 0. Enter the project
 cd /Users/yeoquanxiang/dev/RL
