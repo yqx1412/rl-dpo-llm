@@ -1,13 +1,23 @@
-# Core RL-for-LLM stack. Versions pinned to a known-compatible set (late 2025).
-# If a newer TRL changes the DPOConfig API, see docs/NEXT_STEPS.md for notes.
-torch==2.4.0
-transformers==4.46.0
-trl==0.12.0
-peft==0.13.0
-datasets==3.0.0
-accelerate==1.0.0
-bitsandbytes==0.44.1   # only needed for 4-bit QLoRA; optional on CPU/Mac
-openai==1.54.0          # optional: GPT-as-judge in evaluate.py
-pyyaml==6.0.2
-tqdm==4.66.5
-gradio==5.1.0           # optional: interactive chat demo in app.py
+# Core RL-for-LLM stack.
+#
+# These are minimum-version floors, not exact pins. The code uses TRL's
+# `processing_class=` DPOTrainer API and `max_length`/`max_prompt_length` on
+# DPOConfig, both of which are stable from the versions below onward (verified
+# against current TRL main). Lower bounds keep the project installable on
+# Colab, which ships a recent Python + torch that an exact `torch==` pin would
+# conflict with.
+#
+# torch is intentionally NOT pinned: on Colab/most GPU boxes it is preinstalled
+# with the right CUDA build, and re-pinning it is the usual cause of
+# "no matching distribution" errors. Install torch via your platform if absent.
+torch>=2.4
+transformers>=4.46,<5
+trl>=0.12,<0.24
+peft>=0.13
+datasets>=3.0
+accelerate>=1.0
+bitsandbytes>=0.44 ; platform_system != "Darwin"  # 4-bit QLoRA; CUDA only
+openai>=1.54            # optional: GPT-as-judge in evaluate.py
+pyyaml>=6.0
+tqdm>=4.66
+gradio>=5.0             # optional: interactive chat demo in app.py
