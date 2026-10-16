@@ -95,8 +95,9 @@ cells = [
     md(
         "## 3. Install dependencies",
         "",
-        "Uses the pinned, known-compatible versions in `requirements.txt`.",
-        "Takes a few minutes on first run.",
+        "Uses the version floors in `requirements.txt` (kept compatible with the",
+        "DPOTrainer API). On Colab, `torch` is already installed — these just add",
+        "the HuggingFace stack on top. Takes a few minutes on first run.",
     ),
     code("!pip install -q -r requirements.txt"),
     md(
