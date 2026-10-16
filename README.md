@@ -12,6 +12,12 @@ on preference pairs (chosen vs. rejected) with a simple classification-style los
 It's what most teams reach for first in 2025 because it's stable, cheap, and
 single-GPU friendly.
 
+> **On the SFT stage:** the canonical recipe is SFT → DPO. This project skips
+> SFT *intentionally* by starting from `Qwen2.5-0.5B-**Instruct**`, which is
+> already instruction/chat-tuned, and applies DPO on top. That keeps the project
+> single-GPU-friendly while still demonstrating the full preference-optimization
+> loop; a dedicated SFT stage would be the natural next step for a non-chat base.
+
 ## Why this is on my resume
 
 - **In-demand skill:** RLHF / preference optimization is the dominant LLM

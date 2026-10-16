@@ -4,7 +4,9 @@ Order them from "polish this project" to "second flashy project."
 
 ## Polish (makes the resume bullet stronger)
 
-1. **Ablate β.** Run DPO at β ∈ {0.05, 0.1, 0.3}, plot win-rate vs. β. One figure
+1. **Ablate β.** Run DPO at β ∈ {0.01, 0.05, 0.1}, plot win-rate vs. β. The HF
+   alignment-handbook found low β (~0.01) over 1 epoch matches β=0.1 over 3
+   epochs on UltraFeedback, so sweep *downward* — don't stop at 0.1. One figure
    + one sentence of analysis reads as rigor.
 2. **Ablate LoRA rank** (r ∈ {8, 16, 32}): quality vs. trainable-parameter count.
 3. **Log reward margins.** TRL logs `rewards/chosen`, `rewards/rejected`,
