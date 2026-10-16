@@ -12,18 +12,21 @@ data:
   test_split: "test"
 
 lora:
-  r: 16
-  alpha: 32
+  r: 32                      # raised from 16: more adapter capacity so DPO can
+                            # actually shift behavior on a small instruct model.
+  alpha: 64                 # kept at 2*r (common LoRA convention).
   dropout: 0.05
   target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
 
 dpo:
-  beta: 0.05                # KL penalty strength; lower = move further from ref.
-                            # HF alignment-handbook found low beta (~0.01) with
-                            # 1 epoch matches beta=0.1 over 3 epochs on
-                            # UltraFeedback. Try the 0.01-0.05 range first.
-  learning_rate: 5.0e-6
-  num_train_epochs: 1
+  beta: 0.01                # KL penalty strength; lower = move further from ref.
+                            # Lowered from 0.05 -> 0.01: the HF alignment-handbook
+                            # found beta=0.01 for 1 epoch matches beta=0.1 over 3
+                            # epochs on UltraFeedback. At higher beta the policy
+                            # stays pinned to the reference, so an already-instruct
+                            # base barely changes and the judge returns mostly ties.
+  learning_rate: 5.0e-6     # DPO/RL learning rate (per Unsloth RL guidance); keep.
+  num_train_epochs: 2       # raised from 1: more gradient steps on a small model.
   per_device_train_batch_size: 1    # T4-safe default; raise to 2 on a bigger GPU
   gradient_accumulation_steps: 16   # effective batch = 16
   warmup_ratio: 0.1
