@@ -1,0 +1,12 @@
+# Core RL-for-LLM stack. Versions pinned to a known-compatible set (late 2025).
+# If a newer TRL changes the DPOConfig API, see docs/NEXT_STEPS.md for notes.
+torch==2.4.0
+transformers==4.46.0
+trl==0.12.0
+peft==0.13.0
+datasets==3.0.0
+accelerate==1.0.0
+bitsandbytes==0.44.1   # only needed for 4-bit QLoRA; optional on CPU/Mac
+openai==1.54.0          # optional: GPT-as-judge in evaluate.py
+pyyaml==6.0.2
+tqdm==4.66.5

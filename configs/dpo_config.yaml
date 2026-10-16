@@ -1,0 +1,40 @@
+# DPO training configuration. Edit here instead of touching the scripts.
+
+model:
+  base_model: "Qwen/Qwen2.5-0.5B-Instruct"
+  max_length: 1024          # full sequence (prompt + response)
+  max_prompt_length: 512
+
+data:
+  dataset_name: "trl-lib/ultrafeedback_binarized"
+  prepared_dir: "data/prepared"   # written by prepare_data.py
+  train_split: "train"
+  test_split: "test"
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
+
+dpo:
+  beta: 0.1                 # KL penalty strength; lower = move further from ref
+  learning_rate: 5.0e-6
+  num_train_epochs: 1
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 8   # effective batch = 16
+  warmup_ratio: 0.1
+  logging_steps: 10
+  save_steps: 200
+  bf16: true                # set false + fp16 true on older GPUs; both false on CPU
+  use_qlora: false          # true -> 4-bit base (needs bitsandbytes + CUDA)
+
+output:
+  adapter_dir: "outputs/dpo-adapter"
+  merged_dir: "outputs/dpo-merged"   # optional: full merged model
+
+eval:
+  judge: "openai"           # "openai" (needs OPENAI_API_KEY) or "local"
+  judge_model: "gpt-4o-mini"
+  local_judge_model: "Qwen/Qwen2.5-1.5B-Instruct"
+  max_new_tokens: 256
