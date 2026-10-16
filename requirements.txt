@@ -10,3 +10,4 @@ bitsandbytes==0.44.1   # only needed for 4-bit QLoRA; optional on CPU/Mac
 openai==1.54.0          # optional: GPT-as-judge in evaluate.py
 pyyaml==6.0.2
 tqdm==4.66.5
+gradio==5.1.0           # optional: interactive chat demo in app.py
