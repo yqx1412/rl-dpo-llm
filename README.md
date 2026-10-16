@@ -82,6 +82,22 @@ On a free Colab T4, `--num-samples 2000` and 1 epoch finishes in roughly an hour
 Set `OPENAI_API_KEY` to use GPT as the eval judge, or pass `--judge local` to use a
 local model.
 
+## Try it: interactive demo
+
+After training, launch a Gradio chat UI that loads the base model + your DPO
+adapter — with a **Compare base vs aligned** toggle that shows both responses
+side by side, the clearest way to *see* what preference optimization changed:
+
+```bash
+python app.py                    # chats with the aligned model (reads the config)
+python app.py --base-only        # no adapter needed; try the base model
+python app.py --share            # public share link (handy on Colab)
+```
+
+The demo reads the base model and adapter path from `configs/dpo_config.yaml`, so
+it always points at whatever you trained. If no adapter exists yet it falls back to
+the base model and tells you so.
+
 ## Resume bullets (fill in your real numbers after running)
 
 - Fine-tuned Qwen2.5-0.5B with **Direct Preference Optimization (TRL + LoRA)** on
